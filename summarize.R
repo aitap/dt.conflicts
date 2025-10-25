@@ -152,7 +152,7 @@ render_by_pr <- function(prs, name, mm, con = stdout()) {
 			)
 			if (any(conflicts)) {
 				cat('<p>Conflicts: ', file = con)
-				conflicts <- sort(as.numeric(colnames(mm)[conflicts]))
+				conflicts <- sort(as.numeric(setdiff(colnames(mm)[conflicts], n)))
 				cat(
 					paste0('<a href="#pr', conflicts, '">', conflicts, '</a>', collapse = ', '),
 					file = con
@@ -167,7 +167,7 @@ render_by_pr <- function(prs, name, mm, con = stdout()) {
 			)
 			if (any(commutes)) {
 				cat('<p>Merges cleanly with: ', file = con)
-				commutes <- sort(as.numeric(colnames(mm)[commutes]))
+				commutes <- sort(as.numeric(setdiff(colnames(mm)[commutes], n)))
 				cat(
 					paste0('<a href="#pr', commutes, '">', commutes, '</a>', collapse = ', '),
 					file = con

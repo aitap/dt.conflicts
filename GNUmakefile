@@ -21,8 +21,12 @@ deploy: report-second.html report-both.html
 	! git status --porcelain | grep -v '^??'
 	git checkout -f --orphan deploy
 	git rm --cached -r .
-	git add report-*.html *.rds
+	git add -f report-*.html *.rds
 	git commit -m deploy
 	git push -f origin deploy:pages
 	git checkout -f trunk
+	git checkout deploy -- open-pulls.rds
+	git checkout deploy -- merge-second.rds merge-both.rds
+	git checkout deploy -- report-second.html report-both.html
+	git restore --staged .
 	git branch -D deploy

@@ -225,7 +225,7 @@ summarize_matrix <- function(mm, name, con = stdout(), render_conflicts = FALSE)
 	if (render_conflicts) render_by_conflict(mm, name, con)
 }
 
-summarize_all <- function(l, con = stdout(), render_conflicts = FALSE) {
+summarize_all <- function(l, when, con = stdout(), render_conflicts = FALSE) {
 	if (is.character(con)) {
 		con <- file(con, 'w')
 		on.exit(close(con))
@@ -237,7 +237,8 @@ summarize_all <- function(l, con = stdout(), render_conflicts = FALSE) {
 		'<style> .merge-ok { background: #BBDEB1; } .merge-fail { background: #FFC5D0; } </style>',
 		'</head>',
 		'<body><h1>Pull request conflicts</h1>',
-		'Available merge bases:'
+		paste0('<p>Last updated on: ', as.Date(when), '</p>'),
+		'<p>Available merge bases:</p>'
 	), con)
 
 	writeLines('<ul>', con)
@@ -254,6 +255,6 @@ summarize_all <- function(l, con = stdout(), render_conflicts = FALSE) {
 
 args <- commandArgs(TRUE)
 if (length(args) == 3) {
-	summarize_all(readRDS(args[[1]]), args[[2]], as.logical(args[[3]]))
+	summarize_all(readRDS(args[[1]]), file.mtime(args[[1]]), args[[2]], as.logical(args[[3]]))
 } else if (length(args) != 0)
 	stop("Usage: summarise.R merge.rds output.html {TRUE|FALSE}")

@@ -63,7 +63,7 @@ render_merge_matrix <- function(mm, con = stdout(), render_conflicts = FALSE) {
 			nj <- colnames(mm)[[j]]
 
 			if (ni == nj) {
-				cat('<td><a href="#pr', ni, '">', ni, '</a></th>', file = con, sep = '')
+				cat('<td><a href="#pr', ni, '">', ni, '</a></td>', file = con, sep = '')
 				next
 			}
 

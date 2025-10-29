@@ -208,6 +208,7 @@ summarize_matrix <- function(mm, name, con = stdout(), render_conflicts = FALSE)
 		ncol(mm), nrow(mm)
 	)
 	stopifnot('Not all pull requests commute over merging!' = identical(trees, t(trees)))
+	if (all(!is.na(trees))) render_conflicts <- FALSE
 
 	cat('<h2 id="base-', name, '">', name, '</h2>\n', file = con, sep = '')
 	writeLines(c(

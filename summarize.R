@@ -194,7 +194,8 @@ render_by_conflict <- function(mm, name, con = stdout()) {
 			pr2 <- colnames(mm)[[j]]
 			cat(
 				'<h4 id="conflict-', pr1, '-', pr2, '">Conflict: ',
-				pr1, ', then ', pr2, '</h4>\n',
+				'<a href="#pr', pr1, '">', pr1, '</a>, then ',
+				'<a href="#pr', pr2, '">', pr2, '</a></h4>\n',
 				file = con, sep = ''
 			)
 			render_status(parse_status(mm[[pr1, pr2]]$status), name, con)
